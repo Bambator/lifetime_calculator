@@ -1,0 +1,28 @@
+from datetime import datetime, timedelta
+
+def calculate_age(birth_date):
+    today = datetime.utcnow() + timedelta(hours=3)
+    age = today.year - birth_date.year - ((today.month, today.day) < (birth_date.month, birth_date.day))
+    return age
+
+def calculate_time_lived(birth_date):
+    today = datetime.utcnow() + timedelta(hours=3)
+    time_lived = today - birth_date
+    years = time_lived.days // 365
+    months = (time_lived.days % 365) // 30
+    days = (time_lived.days % 365) % 30
+    hours = time_lived.seconds // 3600
+
+    return years, months, days, hours
+
+name = input("Введите ваше имя: ")
+birth_date_str = input("Введите вашу дату рождения в формате ДД-ММ-ГГГГ: ")
+birth_time_str = input("Введите ваше время рождения в формате ЧЧ:ММ: ")
+birth_datetime_str = birth_date_str + " " + birth_time_str
+birth_date = datetime.strptime(birth_datetime_str, "%d-%m-%Y %H:%M")
+
+print(f"Привет, {name}! Тебе {calculate_age(birth_date)} лет.")
+
+# Рассчитываем количество прожитых лет, месяцев, дней и часов
+years_lived, months_lived, days_lived, hours_lived = calculate_time_lived(birth_date)
+print(f"Вы уже прожили {years_lived} лет, {months_lived} месяцев, {days_lived} дней и {hours_lived} часов.")
